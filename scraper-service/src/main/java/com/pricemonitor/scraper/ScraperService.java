@@ -31,6 +31,7 @@ public class ScraperService {
                     .timeout(10000)
                     .get();
 
+            String title = text(doc, "div.product_main h1");
             String priceRaw = text(doc, "p.price_color");       // p.sh. "£51.77"
             String availability = text(doc, "p.availability");   // p.sh. "In stock (22 available)"
 
@@ -39,11 +40,11 @@ public class ScraperService {
                     && availability.toLowerCase().contains("in stock");
 
             ProductSnapshot snapshot = new ProductSnapshot(
-                    request.productId(), price, "GBP", inStock, Instant.now().toString());
+                    request.productId(), title, price, "GBP", inStock, Instant.now().toString());
 
             kafkaTemplate.send(OUTPUT_TOPIC, String.valueOf(request.productId()), snapshot);
-            log.info("Publikuar snapshot: produkt={} cmim={} inStock={}",
-                    snapshot.productId(), snapshot.price(), snapshot.inStock());
+            log.info("Publikuar snapshot: produkt={} titull='{}' cmim={} inStock={}",
+                    snapshot.productId(), snapshot.title(), snapshot.price(), snapshot.inStock());
 
         } catch (Exception e) {
             log.error("Deshtoi scraping per produktin {}: {}", request.productId(), e.getMessage());

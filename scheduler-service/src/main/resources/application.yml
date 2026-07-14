@@ -1,6 +1,17 @@
 spring:
   application:
     name: scheduler-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/pricemonitor
+    username: pricemonitor
+    password: pricemonitor
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
   kafka:
     bootstrap-servers: localhost:9092
     producer:
