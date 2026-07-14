@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: api-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/pricemonitor
+    username: pricemonitor
+    password: pricemonitor
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+server:
+  port: 8080
