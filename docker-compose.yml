@@ -38,6 +38,15 @@ services:
       POSTGRES_PASSWORD: pricemonitor
     volumes:
       - postgres-data:/var/lib/postgresql/data
-
+  # ======================================================
+  # MOCK SHOP — faqe testimi me cmime qe ndryshojne
+  # Perdoret per te validuar detektimin e ndryshimeve,
+  # pasi faqet publike te testimit jane statike.
+  # ======================================================
+  mock-shop:
+    build: ./mock-shop
+    container_name: mock-shop
+    ports:
+      - "8000:8000"
 volumes:
   postgres-data:
